@@ -1,47 +1,143 @@
 FORMAT: 1A
-HOST: http://www.google.com
+HOST: http://api.gtdtodoapi.com
 
-# GTD ToDo API
-Notes API is a *short texts saving* service similar to its physical paper presence on your table.
+# GTD TODO API
+This is an example API, originally written as a companion to a [Quickly Prototype APIs with Apiary](http://sendgrid.com/blog/quickly-prototype-apis-apiary/) blog post at SendGrid.com. Extended by [@zdne](https://github.com/zdne) put emphasis on hyperlinks.
 
-# Group Notes
-Notes related resources of the **Notes API**
+## GTD TODO API [/]
+The API entry point. Root of the API. Main node of the mind map.
+This entry point resource does not have any attributes, instead it offers affordances available at the root of the API.
 
-## Notes Collection [/notes]
-### List all Notes [GET]
-+ Response 200 (application/json)
+### Affordances
++ self ... API entry point
++ folders ... Folders available
 
-        [{
-          "id": 1, "title": "Jogging in park"
-        }, {
-          "id": 2, "title": "Pick-up posters from post-office"
-        }]
+## Retrieve the API Root [GET]
 
-### Create a Note [POST]
++ Response 200 (application/hal+json)
+
+        {
+            "_links": {
+               "self": { "href": "/" },
+               "folders": { "href": "/folders"},
+            }
+        }
+
+# Folder Collection [/folders]
+
+### Attributes
++ `folders_count` ... Total count of all folders
+
+### Affordances
++ self ... List of all Folders
+
++ Model (application/hal+json)
+
+        {
+            "_links": {
+               "self": { "href": "/folders" },        
+            },
+            "folders_count": 2,
+            "_embedded": {
+                "folders" : [
+                    {
+                        "_links": {
+                           "self": { "href": "/folders/1" },        
+                        },                
+                        "id": 1,
+                        "name": "Health",
+                        "description": "This represents projects that are related to health",
+                    },
+                    {
+                        "_links": {
+                           "self": { "href": "/folders/2" },        
+                        },                
+                        "id": 2,
+                        "name": "Diet",
+                        "description": "A collection of projects related to Diet",
+                    }
+                ]
+            }
+        }
+
+## List all Folders [GET]
+Get all of the Folders.
+
++ Response 200
+
+    [Folder Collection][]
+
+## Create a Folder [POST]
+
 + Request (application/json)
-
-        { "title": "Buy cheese and bread for breakfast." }
-
-+ Response 201 (application/json)
-
-        { "id": 3, "title": "Buy cheese and bread for breakfast." }
-
-## Note [/notes/{id}]
-A single Note object with all its details
-
-+ Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Note to perform action with. Has example value.
-
-### Retrieve a Note [GET]
-+ Response 200 (application/json)
-
-    + Header
-
-            X-My-Header: The Value
+        
+    Represents a folder to be created. At minimum it must contain the `name` and `description` attributes. 
+    Optionally it may contain `parent` and `meta` attributes of the Folder being created.
 
     + Body
 
-            { "id": 2, "title": "Pick-up posters from post-office" }
+            {
+                "name": "Diet",
+                "description": "A collection of projects related to Diet",
+                "parent": 1
+            }
 
-### Remove a Note [DELETE]
++ Response 201 (application/hal+json)
+
+        {
+            "_links": {
+               "self": { "href": "/folders/1" },
+            }
+        }
+
+## Folder [/folders/{id}]
+A single Folder object.
+
+### Attributes
++ `id` ... Id of a folder. Automatically assigned
++ `name` ... Name of the folder
++ `description` ... Description of the folder
++ `parent` ... ID of folder that is the parent. Set to 0 if no parent
++ `meta` ... A catch-all attribute to add custom features
+
+### Affordances
++ self ... A single Folder
+
++ Parameters
+    + id (required, int) ... Unique folder ID in the form of an integer
+
++ Model (application/hal+json)
+    
+        {
+            "_links": {
+               "self": { "href": "/folders/1" },        
+            },
+            "id": 1,
+            "name": "Health",
+            "description": "This represents projects that are related to health",
+            "parent": 0,
+            "meta": "NULL"
+        }
+            
+## Retrieve a single Folder [GET]
+
++ Response 200
+
+    [Folder][]
+    
+### Edit a Folder [PATCH]
+Partial update of a folder.
+
++ Request (application/json)
+
+        {
+            "description": "A collection of health related projects",
+        }
+
++ Response 200
+    
+    [Folder][]
+
+## Delete a Folder [DELETE]
+
 + Response 204
