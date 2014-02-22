@@ -9,8 +9,8 @@ The API entry point. Root of the API. Main node of the mind map.
 This entry point resource does not have any attributes, instead it offers affordances available at the root of the API.
 
 ### Affordances
-+ self ... API entry point
-+ folders ... Folders available
++ `self` ... API entry point
++ `folders` ... Folders available
 
 ## Retrieve the API Root [GET]
 
@@ -29,7 +29,7 @@ This entry point resource does not have any attributes, instead it offers afford
 + `folders_count` ... Total count of all folders
 
 ### Affordances
-+ self ... List of all Folders
++ `self` ... List of all Folders
 
 + Model (application/hal+json)
 
@@ -101,7 +101,7 @@ A single Folder object.
 + `meta` ... A catch-all attribute to add custom features
 
 ### Affordances
-+ self ... A single Folder
++ `self` ... A single Folder
 
 + Parameters
     + id (required, int) ... Unique folder ID in the form of an integer
@@ -126,7 +126,6 @@ A single Folder object.
     [Folder][]
     
 ### Edit a Folder [PATCH]
-Partial update of a folder.
 
 + Request (application/json)
 
