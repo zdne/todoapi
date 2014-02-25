@@ -19,76 +19,7 @@ This entry point resource does not have any attributes, instead it offers afford
         {
             "_links": {
                "self": { "href": "/" },
-               "folders": { "href": "/folders"},
-            }
-        }
-
-# Folder Collection [/folders]
-Collections of all folders.
-
-### Attributes
-+ `folders_count` ... Total count of all folders
-
-### Affordances
-+ `show` (`self`) ... List of all Folders
-+ `create` ... Create a new Folder
-
-+ Model (application/hal+json)
-
-        {
-            "_links": {
-               "self": { "href": "/folders" },
-               "create": { "href": "/folders" }
-            },
-            "folders_count": 2,
-            "_embedded": {
-                "folders" : [
-                    {
-                        "_links": {
-                           "self": { "href": "/folders/1" },        
-                        },                
-                        "id": 1,
-                        "name": "Health",
-                        "description": "This represents projects that are related to health",
-                    },
-                    {
-                        "_links": {
-                           "self": { "href": "/folders/2" },        
-                        },                
-                        "id": 2,
-                        "name": "Diet",
-                        "description": "A collection of projects related to Diet",
-                    }
-                ]
-            }
-        }
-
-## List all Folders [GET]
-
-+ Response 200
-
-    [Folder Collection][]
-
-## Create a Folder [POST]
-
-+ Request (application/json)
-        
-    Represents a folder to be created. At minimum it must contain the `name` and `description` attributes. 
-    Optionally it may contain `parent` and `meta` attributes of the Folder being created.
-
-    + Body
-
-            {
-                "name": "Diet",
-                "description": "A collection of projects related to Diet",
-                "parent": 1
-            }
-
-+ Response 201 (application/hal+json)
-
-        {
-            "_links": {
-               "self": { "href": "/folders/1" },
+               "folders": { "href": "/folders"}
             }
         }
 
@@ -108,7 +39,7 @@ A single Folder object.
 + `delete` (`edit`) ... Deletes the Folder 
 
 + Parameters
-    + id (required, int) ... Unique folder ID in the form of an integer
+    + id (required, int, `0`) ... Unique folder ID in the form of an integer
 
 + Model (application/hal+json)
     
@@ -135,7 +66,7 @@ A single Folder object.
 + Request (application/json)
 
         {
-            "description": "A collection of health related projects",
+            "description": "A collection of health related projects"
         }
 
 + Response 200
@@ -145,3 +76,68 @@ A single Folder object.
 ## Delete a Folder [DELETE]
 
 + Response 204
+
+# Folder Collection [/folders]
+Collections of all folders.
+
+### Attributes
++ `folder_count` ... Total count of all folders
+
+### Affordances
++ `show` (`self`) ... List of all Folders
++ `create` ... Create a new Folder
+
++ Model (application/hal+json)
+
+        {
+            "_links": {
+               "self": { "href": "/folders" },
+               "create": { "href": "/folders" }
+            },
+            "folder_count": 2,
+            "_embedded": {
+                "folders" : [
+                    {
+                        "_links": {
+                           "self": { "href": "/folders/1" }
+                        },                
+                        "id": 1,
+                        "name": "Health",
+                        "description": "This represents projects that are related to health"
+                    },
+                    {
+                        "_links": {
+                           "self": { "href": "/folders/2" }     
+                        },                
+                        "id": 2,
+                        "name": "Diet",
+                        "description": "A collection of projects related to Diet"
+                    }
+                ]
+            }
+        }
+
+## List all Folders [GET]
+
++ Response 200
+
+    [Folder Collection][]
+
+## Create a Folder [POST]
+
++ Request (application/json)
+        
+    Represents a folder to be created. At minimum it must contain the `name` and `description` attributes. 
+    Optionally it may contain `parent` and `meta` attributes of the Folder being created.
+
+    + Body
+
+            {
+                "name": "Diet",
+                "description": "A collection of projects related to Diet",
+                "parent": 1
+            }
+
++ Response 201
+
+    [Folder][]
