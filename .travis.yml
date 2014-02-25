@@ -1,0 +1,19 @@
+language: ruby
+rvm:
+  - 2.0.0
+before_script:
+  - npm install -g dredd
+script:
+  - ruby app.rb &
+  - sleep 3
+  - PID=$!
+  - dredd apiary.apib http://localhost:4567
+  - RESULT=$?
+  - kill -9 $PID
+  - exit $RESULT
+notifications:
+  email:
+    recipients:
+      - z@apiary.io  
+    on_success: change
+    on_failure: always
