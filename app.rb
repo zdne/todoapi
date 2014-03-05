@@ -13,11 +13,13 @@ folders_collection.extend(FoldersHALRepresentation)
 # API Routing
 #
 get '/' do
-  hal_response(api_root)
+  headers HAL_CONTENT_TYPE_HEADER
+  api_root.to_json
 end
 
 get '/folders' do
-  hal_response(folders_collection)
+  headers HAL_CONTENT_TYPE_HEADER
+  folders_collection.to_json
 end
 
 post '/folders' do
@@ -30,14 +32,17 @@ post '/folders' do
   folder.extend(FolderHALRepresentation)
   folders_collection.folders << folder
   
-  hal_response(folder, 201)
+  headers HAL_CONTENT_TYPE_HEADER
+  body folder.to_json
+  201
 end
 
 get '/folders/:id' do
   folder = folders_collection.folder_with_id(params[:id].to_i)
   return 404 unless folder
 
-  hal_response(folder)
+  headers HAL_CONTENT_TYPE_HEADER
+  folder.to_json
 end
 
 patch '/folders/:id' do
@@ -49,9 +54,11 @@ patch '/folders/:id' do
   patch_data = Folder.new
   patch_data.extend(FolderJSONRepresentation)
   patch_data.from_json(request.body.read)
+  
   folder.patch(patch_data)
 
-  hal_response(folder)
+  headers HAL_CONTENT_TYPE_HEADER
+  folder.to_json
 end
 
 delete '/folders/:id' do
@@ -60,16 +67,4 @@ delete '/folders/:id' do
 
   folders_collection.folders.delete(folder)
   204
-end
-
-# Set Sinatra HAL response
-#   Serialize a resource to its HAL+JSON representation &
-#   set appropriate Content-Type.
-#
-# @param object [Object] object to serialize in response body
-# @param status_code [Integer] status code of the response
-def hal_response(object, status_code = 200)
-  headers 'Content-Type' => 'application/hal+json'
-  status status_code
-  body object.to_json
 end

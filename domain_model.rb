@@ -2,6 +2,13 @@ require 'roar/representer/json/hal'
 
 # TODO API Resoures & Representations (Media Types)
 
+# HTTP Content Type Header field & value representing 
+#   HAL+JSON media type 
+#
+HAL_CONTENT_TYPE_HEADER = { 
+  'Content-Type' => 'application/hal+json' 
+}
+
 # API root resource
 #
 class APIRoot
