@@ -6,11 +6,11 @@ This is an example API, originally written as a companion to a [Quickly Prototyp
 
 ## GTD TODO API [/]
 The API entry point. Root of the API. Main node of the mind map.
-This entry point resource does not have any attributes, instead it offers affordances available at the root of the API.
+This entry point resource does not have any attributes, instead it offers root API affordances.
 
 ### Affordances
 + `show` (`self`) ... API entry point
-+ `folders` ... List of todo folders 
++ `folders` ... Lists all folders 
 
 ## Retrieve the API Root [GET]
 
@@ -35,8 +35,7 @@ A single Folder object.
 
 ### Affordances
 + `show` (`self`) ... A single Folder
-+ `update` (`edit`) ... Updates the Folder
-+ `delete` (`edit`) ... Deletes the Folder 
++ `edit` ... Update or delete the Folder
 
 + Parameters
     + id (required, int, `0`) ... Unique folder ID in the form of an integer
@@ -46,7 +45,7 @@ A single Folder object.
         {
             "_links": {
                "self": { "href": "/folders/1" },
-               "edit": { "href": "/folders/1" }     
+               "edit": { "href": "/folders/1" }
             },
             "id": 1,
             "name": "Health",
