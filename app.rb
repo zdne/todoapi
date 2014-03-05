@@ -22,16 +22,25 @@ get '/folders' do
   folders_collection.to_json
 end
 
+# Exemplar resource and its representations pattern:
+#   Create a new folder resource from a JSON representation 
+#   and responde with its HAL representation
 post '/folders' do
   request.body.rewind
   
+  # Create new resource
   folder = Folder.new
+
+  # Pull in its JSON representation
   folder.extend(FolderJSONRepresentation)
   folder.from_json(request.body.read)
+
+  # Insert new resource to "DB"
   folder.id = folders_collection.folders[-1].id + 1
-  folder.extend(FolderHALRepresentation)
-  folders_collection.folders << folder
+  folders_collection.folders << folder  
   
+  # Respond with HAL representation
+  folder.extend(FolderHALRepresentation)
   headers HAL_CONTENT_TYPE_HEADER
   body folder.to_json
   201
