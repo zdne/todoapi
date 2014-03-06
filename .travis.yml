@@ -3,9 +3,8 @@ rvm:
   - 2.0.0
 before_script:
   - npm install -g dredd
-  - bundle install
 script:
-  - ruby app.rb &
+  - bundle exec ruby app.rb &
   - sleep 3
   - PID=$!
   - dredd apiary.apib http://localhost:4567
