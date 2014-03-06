@@ -19,7 +19,7 @@ Fork & Pull Request.
 MIT License. See the [LICENSE](LICENSE) file.
 
 [API Blueprint]: http://apiblueprint.org
-[Blog post]: http://blog.apiary.io
+[Blog post]: http://blog.apiary.io/2014/03/06/Surfing-API/
 [Dredd]: https://github.com/apiaryio/dredd
 [Sinatra]: http://www.sinatrarb.com
 [Roar]: https://github.com/apotonick/roar
