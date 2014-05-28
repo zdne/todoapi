@@ -12,7 +12,7 @@ This entry point resource does not have any attributes, instead it offers root A
 + `show` (`self`) ... API entry point
 + `folders` ... Lists all folders 
 
-## Retrieve the API Root [GET]
+### Retrieve the API Root [GET]
 
 + Response 200 (application/hal+json)
 
@@ -54,7 +54,7 @@ A single Folder object.
             "meta": "NULL"
         }
             
-## Retrieve a single Folder [GET]
+### Retrieve a single Folder [GET]
 
 + Response 200
 
@@ -72,11 +72,11 @@ A single Folder object.
     
     [Folder][]
 
-## Delete a Folder [DELETE]
+### Delete a Folder [DELETE]
 
 + Response 204
 
-# Folder Collection [/folders]
+## Folder Collection [/folders]
 Collections of all folders.
 
 ### Attributes
@@ -116,13 +116,13 @@ Collections of all folders.
             }
         }
 
-## List all Folders [GET]
+### List all Folders [GET]
 
 + Response 200
 
     [Folder Collection][]
 
-## Create a Folder [POST]
+### Create a Folder [POST]
 
 + Request (application/json)
         
