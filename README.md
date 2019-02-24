@@ -10,7 +10,7 @@ API described in [API Blueprint][] and tested by [Dredd][]. App written in Ruby 
 - Ruby client: <https://github.com/zdne/todoapi-client-ruby>
 
 ## Design Notes
-Todo API implementation demonstrates _resource_ and its _representation_ abstraction using the the awesome [Roar][] library. See the [`domain_model.rb`](domain_model.rb) and commented implementation in [`post '/folders'`](app.rb#L28).
+Todo API implementation demonstrates _resource_ and its _representation_ abstraction using the awesome [Roar][] library. See the [`domain_model.rb`](domain_model.rb) and commented implementation in [`post '/folders'`](app.rb#L28).
 
 ## Contribute
 Fork & Pull Request.
